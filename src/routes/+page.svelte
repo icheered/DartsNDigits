@@ -11,7 +11,6 @@
 	let newTeamName = '';
 
 	async function addTeam() {
-		console.log('newTeamName:', newTeamName);
 		teamNumberCounter += 1;
 		const newTeam = {
 			name: newTeamName,
@@ -47,12 +46,26 @@
 		teamNumberCounter = 0;
 		teams = [];
 	}
+
+	function displayScore(score) {
+		if (score == 21) {
+			return 'GREEN';
+		} else if (score == 22) {
+			return 'RED';
+		} else if (score == 23) {
+			return 'WIN';
+		} else {
+			return score;
+		}
+	}
 </script>
 
-<div class="w-full flex justify-center p-4 bg-black">
+<div class="w-full flex justify-center p-4 bg-black pb-12">
 	<div class="card bg-base-100 shadow-xl h-min">
 		<div class="card-body flex flex-col place-items-center">
-			<h1 class="font-bold leading-tight tracking-tight text-4xl text-center text-black">
+			<h1
+				class="font-bold leading-tight tracking-tight text-4xl text-center text-black dark:text-white"
+			>
 				Darts 'n Digits
 			</h1>
 
@@ -86,15 +99,16 @@
 						bind:value={newTeamName}
 						class="input input-bordered w-full max-w-xs"
 					/>
-					<button class="btn bg-primary-light" on:click={addTeam}>Add</button>
+					<button class="btn bg-primary-light text-white" on:click={addTeam}>Add</button>
 				</div>
 			</div>
 
 			<div class="grid grid-cols-12 font-semibold w-full text-center">
 				{#each teams as team, index}
 					<div class="col-span-2 h-full flex justify-center place-items-center">
-						<button class="btn bg-primary-light" on:click={() => updateScore(team.id, -1)}
-							>-1</button
+						<button
+							class="btn bg-primary-light text-white"
+							on:click={() => updateScore(team.id, -1)}>-1</button
 						>
 					</div>
 
@@ -103,12 +117,13 @@
 							{team.name.toUpperCase()}
 						</div>
 						<div class="col-span-1 flex justify-center place-items-center text-4xl">
-							{team.score}
+							{displayScore(team.score)}
 						</div>
 					</div>
 
 					<div class="col-span-2 flex justify-center place-items-center">
-						<button class="btn bg-primary-light" on:click={() => updateScore(team.id, 1)}>+1</button
+						<button class="btn bg-primary-light text-white" on:click={() => updateScore(team.id, 1)}
+							>+1</button
 						>
 					</div>
 					<div class="col-span-1 flex justify-center place-items-center">
@@ -126,7 +141,7 @@
 			</div>
 
 			<button
-				class="w-full h-20 btn bg-primary-light"
+				class="w-full h-48 text-white btn bg-primary-light"
 				on:click={() => nextRound()}
 				on:keydown={() => nextRound()}
 			>
